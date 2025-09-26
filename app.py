@@ -20,7 +20,7 @@ logging.basicConfig(
 # logging.getLogger("httpcore").setLevel(logging.WARNING)
 
 # Твой токен
-BOT_TOKEN = os.getenv("BOT_TOKEN", "YOUR_KEY_TOKEN")
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 API_URL_TEMPLATE = "https://api.encar.com/v1/readside/vehicle/{}"
 
