@@ -16,12 +16,11 @@ logging.basicConfig(
     encoding='utf-8'
 )
 
-logging.getLogger("httpx").setLevel(logging.WARNING)
-logging.getLogger("httpcore").setLevel(logging.WARNING)
+# logging.getLogger("httpx").setLevel(logging.WARNING)
+# logging.getLogger("httpcore").setLevel(logging.WARNING)
 
 # Твой токен
-BOT_TOKEN = os.getenv("BOT_TOKEN", "8415744143:AAGqAwOG87nffdLeHLQh0ob4O3FhTl94Ohw")
-# BOT_TOKEN = "8415744143:AAGqAwOG87nffdLeHLQh0ob4O3FhTl94Ohw"
+BOT_TOKEN = os.getenv("BOT_TOKEN", "YOUR_KEY_TOKEN")
 
 API_URL_TEMPLATE = "https://api.encar.com/v1/readside/vehicle/{}"
 
@@ -61,7 +60,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not lot_id:
         reply = "Пожалуйста, отправьте номер лота или ссылку на лот."
         await update.message.reply_text(reply)
-        logging.info(f"[user_id: {user_id}] Некорректный запрос: {user_input}")
+        # logging.info(f"[user_id: {user_id}] Некорректный запрос: {user_input}")
         return
 
     api_url = API_URL_TEMPLATE.format(lot_id)
@@ -70,11 +69,11 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if response.status_code != 200:
             reply = f"Ошибка запроса к API (код {response.status_code})."
             await update.message.reply_text(reply)
-            logging.error(f"[user_id: {user_id}] API error {response.status_code}: {api_url}")
+            # logging.error(f"[user_id: {user_id}] API error {response.status_code}: {api_url}")
             return
 
         data = response.json()
-        logging.info("API JSON for lot_id=%s: %s", lot_id, json.dumps(data, ensure_ascii=False))
+        # logging.info("API JSON for lot_id=%s: %s", lot_id, json.dumps(data, ensure_ascii=False))
 
         kurs_krw = load_rate_krw()
         kurs_euro = load_rate_eur()
@@ -129,12 +128,12 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
         await update.message.reply_text(reply, parse_mode="Markdown")
-        logging.info(f"[user_id={user_id}] lot_id={lot_id}: customs_value={customs_value_eur}, customs_duty={customs_duty}")
+        # logging.info(f"[user_id={user_id}] lot_id={lot_id}: customs_value={customs_value_eur}, customs_duty={customs_duty}")
 
     except Exception as e:
         reply = "Ошибка при получении информации о лоте. Попробуйте позже."
         await update.message.reply_text(reply)
-        logging.exception(f"[user_id: {user_id}] Exception: {e}")
+        # logging.exception(f"[user_id: {user_id}] Exception: {e}")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Пришлите номер лота или ссылку, чтобы получить информацию.")
