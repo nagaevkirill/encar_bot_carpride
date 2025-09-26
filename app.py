@@ -7,21 +7,22 @@ from dict_for_replace import translate_korean
 from datetime import datetime
 from service_currency.scheduler import run_scheduler_in_background
 from service_currency.storage import load_rate_eur, load_rate_krw, load_rate_usd, load_rate_date
+from dotenv import load_dotenv
 
 # Настройки логирования
-logging.basicConfig(
-    filename='encar_bot.log',
-    format='%(asctime)s %(levelname)s %(message)s',
-    level=logging.INFO,
-    encoding='utf-8'
-)
+# logging.basicConfig(
+#     filename='encar_bot.log',
+#     format='%(asctime)s %(levelname)s %(message)s',
+#     level=logging.INFO,
+#     encoding='utf-8'
+# )
 
 # logging.getLogger("httpx").setLevel(logging.WARNING)
 # logging.getLogger("httpcore").setLevel(logging.WARNING)
 
+load_dotenv("stack.env", override=False)
 # Твой токен
-# BOT_TOKEN = os.getenv("BOT_TOKEN", "YOUR_KEY_TOKEN")
-BOT_TOKEN = "8415744143:AAGqAwOG87nffdLeHLQh0ob4O3FhTl94Ohw"
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 API_URL_TEMPLATE = "https://api.encar.com/v1/readside/vehicle/{}"
 
