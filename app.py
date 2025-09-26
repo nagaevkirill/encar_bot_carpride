@@ -20,7 +20,8 @@ logging.basicConfig(
 # logging.getLogger("httpcore").setLevel(logging.WARNING)
 
 # Твой токен
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+# BOT_TOKEN = os.getenv("BOT_TOKEN", "YOUR_KEY_TOKEN")
+BOT_TOKEN = "8415744143:AAGqAwOG87nffdLeHLQh0ob4O3FhTl94Ohw"
 
 API_URL_TEMPLATE = "https://api.encar.com/v1/readside/vehicle/{}"
 
@@ -124,7 +125,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"📲 ЗАКАЖИ ЭТО АВТО [ЗДЕСЬ](https://t.me/Car_pride) ➡️️ — [Car Pride](https://t.me/Car_pride)\n"
             f"📲 ЗАКАЖИ ЭТО АВТО [ЗДЕСЬ](https://t.me/Car_pride) ➡️️ — [Car Pride](https://t.me/Car_pride)\n"
             f"📲 ЗАКАЖИ ЭТО АВТО [ЗДЕСЬ](https://t.me/Car_pride) ➡️️ — [Car Pride](https://t.me/Car_pride)\n\n"
-            f"➡️ EUR: {kurs_euro} USD: {kurs_usd} Обновлён {load_rate_date()}\n"
+            f"➡️ EUR: {kurs_euro} USD: {kurs_usd} Обновлено {load_rate_date()}\n"
         )
 
         await update.message.reply_text(reply, parse_mode="Markdown")
